@@ -96,29 +96,26 @@ os.chdir("..")
 readMePathList = glob.glob("**/README.md", recursive=True)
 
 # adds the content from the README.md files to a list
+"""
 readMeContentList = []
 for path in readMePathList:
     txt = openAndReadFile(path)
     readMeContentList.append(txt)
-    """
-    try:
-        file = open(path)
-        txt = file.read()
-        readMeContentList.append(txt)
-        file.close()
-    except FileNotFoundError as FNF:
-        print(FNF)
-    """
-
+"""
 # Adds the required reading bullet points to a list
-requiredReading = []
-for f in readMePathList:
-    with open(f, "rt") as f1:
-        lines = f1.read()
-        lines = lines[lines.find("## Required reading") : lines.find("## Supplementary reading")]
-        lines = lines[lines.find("## Required reading") : lines.find("### Supplementary reading")]
-        lines = lines[lines.find("## Required reading") : lines.find("## Required reading paragraph")]
-        requiredReading.append(lines)
+
+def findRequired(pathList):
+    requiredReading = []
+    for f in pathList:
+        with open(f, "rt") as f1:
+            lines = f1.read()
+            lines = lines[lines.find("## Required reading") : lines.find("## Supplementary reading")]
+            lines = lines[lines.find("## Required reading") : lines.find("### Supplementary reading")]
+            lines = lines[lines.find("## Required reading") : lines.find("## Required reading paragraph")]
+            requiredReading.append(lines)
+    return requiredReading
+
+requiredReading = findRequired(readMePathList)
 
 # Creates a directory "curriculum"
 try:
