@@ -24,7 +24,7 @@ getRepoInfo()
 
 # Opens the file "repository_info.txt"
 
-def openAndReadFile(fileName):
+def openFile(fileName):
     try:
         file = open(fileName)
         text = file.read()
@@ -33,7 +33,7 @@ def openAndReadFile(fileName):
         print(FNF)
     return text
 
-text = openAndReadFile("repository_info.txt")
+text = openFile("repository_info.txt")
 
 # Adds the starting indexes for every clone url
 
@@ -95,15 +95,7 @@ os.chdir("..")
 # Adds the path for every README.md file
 readMePathList = glob.glob("**/README.md", recursive=True)
 
-# adds the content from the README.md files to a list
-"""
-readMeContentList = []
-for path in readMePathList:
-    txt = openAndReadFile(path)
-    readMeContentList.append(txt)
-"""
 # Adds the required reading bullet points to a list
-
 def findRequired(pathList):
     requiredReading = []
     for f in pathList:
@@ -118,40 +110,47 @@ def findRequired(pathList):
 requiredReading = findRequired(readMePathList)
 
 # Creates a directory "curriculum"
-try:
-    os.mkdir("curriculum")
-except FileExistsError as FEE:
-    print(FEE)
+createFolder("curriculum")
 
 os.chdir("curriculum")
 
-try:
-    print("create md")
-    file = open("required_reading.md", "w")
-    for line in requiredReading:
-        file.write(line)
-    file.close()
-except Exception as e:
-    print(e)
+def writeFile(list):
+    try:
+        file = open("required_reading.md", "w")
+        for line in list:
+            file.write(line)
+        file.close()
+    except Exception as e:
+        print(e)
 
-try:
-    f = open("required_reading.md", "r")
-    lines = f.readlines()
-    f.close()
-    f = open("required_reading.md", "w")
-    for line in lines:
-        line = line.replace("## Required reading", "")
-        f.write(line)
-    f.close()
-except Exception as e:
-    print(e)
+writeFile(requiredReading)
+
+# Removes "## Required reading" from the file
+def removeHeader():
+    try:
+        f = open("required_reading.md", "r")
+        lines = f.readlines()
+        f.close()
+        f = open("required_reading.md", "w")
+        for line in lines:
+            line = line.replace("## Required reading", "")
+            f.write(line)
+        f.close()
+    except Exception as e:
+        print(e)
+
+removeHeader()
 
 
-with open("required_reading.md", "r") as r:
-    sortedFile = sorted(r)
+# Sort the file alphabetically
+def sortFile():
+    with open("required_reading.md", "r") as r:
+        sortedFile = sorted(r)
 
-with open("required_reading.md", "w") as w:
-    w.writelines(sortedFile)
+    with open("required_reading.md", "w") as w:
+        w.writelines(sortedFile)
+
+sortFile()
 
 # Remove whitespace and add spacing
 for line in fileinput.FileInput("required_reading.md", inplace=1):
