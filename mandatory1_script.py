@@ -98,6 +98,9 @@ readMePathList = glob.glob("**/README.md", recursive=True)
 # adds the content from the README.md files to a list
 readMeContentList = []
 for path in readMePathList:
+    txt = openAndReadFile(path)
+    readMeContentList.append(txt)
+    """
     try:
         file = open(path)
         txt = file.read()
@@ -105,6 +108,7 @@ for path in readMePathList:
         file.close()
     except FileNotFoundError as FNF:
         print(FNF)
+    """
 
 # Adds the required reading bullet points to a list
 requiredReading = []
