@@ -53,17 +53,26 @@ def getCloneUrlStartIndex(txt):
 searchString, cloneLinkIndexList = getCloneUrlStartIndex(text)
 
 # Grabs the link with use of the indexes above
-cloneLinkList = []
-i = 0
-while i < text.count(searchString):
-    cloneLinkList.append(text[cloneLinkIndexList[i] : text.find(",", cloneLinkIndexList[i]) -1])
-    i += 1
+
+def getCloneLinks(linkIndexList):
+    cloneLinkList = []
+    i = 0
+    while i < text.count(searchString):
+        cloneLinkList.append(text[cloneLinkIndexList[i] : text.find(",", cloneLinkIndexList[i]) -1])
+        i += 1
+    return cloneLinkList
+
+cloneLinkList = getCloneLinks(cloneLinkIndexList)
 
 # Creates new folder "repositories"
-try:
-    os.mkdir("repositories")
-except FileExistsError as FEE:
-    print(FEE)
+
+def createFolder(name):
+    try:
+        os.mkdir(name)
+    except FileExistsError as FEE:
+        print(FEE)
+
+createFolder("repositories")
 
 # Changes into folder "repositories"
 os.chdir("repositories")
