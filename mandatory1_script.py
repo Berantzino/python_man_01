@@ -144,3 +144,9 @@ with open("required_reading.md", "w") as w:
 for line in fileinput.FileInput("required_reading.md", inplace=1):
     if line.rstrip():
         print(line)
+
+# Push to github
+#subprocess.run(["git", "add", "."])
+subprocess.run(["git", "commit", "-a", "-m", '"Required reading commit"'])
+subprocess.run(["git", "pull"])
+subprocess.run(["git", "push"])
