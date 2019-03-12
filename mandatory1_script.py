@@ -27,33 +27,36 @@ getRepoInfo()
 def openAndReadFile(fileName):
     try:
         file = open(fileName)
-        txt = file.read()
+        text = file.read()
         file.close()
     except FileNotFoundError as FNF:
         print(FNF)
-    return txt
+    return text
 
-txt = openAndReadFile("repository_info.txt")
+text = openAndReadFile("repository_info.txt")
 
 # Adds the starting indexes for every clone url
-cloneLinkIndexList = []
-i = 0
-searchString = "clone_url"
-while i < txt.count(searchString):
-    if not cloneLinkIndexList:
-        cloneLinkIndexList.append(txt.find(searchString, i) + 12)
-        print("cloneLinkIndexList is empty")
-        i += 1
-    else:
-        cloneLinkIndexList.append(txt.find(searchString, cloneLinkIndexList[-1] + 1) + 12)
-        print(cloneLinkIndexList[-1])
-        i += 1
+
+def getCloneUrlStartIndex(txt):
+    cloneLinkIndexList = []
+    i = 0
+    searchString = "clone_url"
+    while i < txt.count(searchString):
+        if not cloneLinkIndexList:
+            cloneLinkIndexList.append(txt.find(searchString, i) + 12)
+            i += 1
+        else:
+            cloneLinkIndexList.append(txt.find(searchString, cloneLinkIndexList[-1] + 1) + 12)
+            i += 1
+    return searchString, cloneLinkIndexList
+
+searchString, cloneLinkIndexList = getCloneUrlStartIndex(text)
 
 # Grabs the link with use of the indexes above
 cloneLinkList = []
 i = 0
-while i < txt.count(searchString):
-    cloneLinkList.append(txt[cloneLinkIndexList[i] : txt.find(",", cloneLinkIndexList[i]) -1])
+while i < text.count(searchString):
+    cloneLinkList.append(text[cloneLinkIndexList[i] : text.find(",", cloneLinkIndexList[i]) -1])
     i += 1
 
 # Creates new folder "repositories"
