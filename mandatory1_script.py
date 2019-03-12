@@ -7,27 +7,36 @@ from urllib.error import HTTPError
 import fileinput
 
 
-try:
-    response = urlopen("https://api.github.com/orgs/python-elective-1-spring-2019/repos?per_page=100")
-    txt = response.read().decode("UTF-8")
-    file = open("repository_info.txt", "w")
-    file.write(txt)
-    file.close()
-except HTTPError as err:
-    print(err)
-except Exception as err:
-    print(err)
-# Clone repos
+# Opens the link and reads the content of it into a file "repository_info.txt"
+def getRepoInfo():
+    try:
+        response = urlopen("https://api.github.com/orgs/python-elective-1-spring-2019/repos?per_page=100")
+        txt = response.read().decode("UTF-8")
+        file = open("repository_info.txt", "w")
+        file.write(txt)
+        file.close()
+    except HTTPError as err:
+        print(err)
+    except Exception as err:
+        print(err)
 
-try:
-    file = open("repository_info.txt")
-    txt = file.read()
-    file.close()
-except FileNotFoundError as FNF:
-    print(FNF)
+getRepoInfo()
 
+# Opens the file "repository_info.txt"
+
+def openAndReadFile(fileName):
+    try:
+        file = open(fileName)
+        txt = file.read()
+        file.close()
+    except FileNotFoundError as FNF:
+        print(FNF)
+    return txt
+
+txt = openAndReadFile("repository_info.txt")
+
+# Adds the starting indexes for every clone url
 cloneLinkIndexList = []
-
 i = 0
 searchString = "clone_url"
 while i < txt.count(searchString):
@@ -40,20 +49,23 @@ while i < txt.count(searchString):
         print(cloneLinkIndexList[-1])
         i += 1
 
+# Grabs the link with use of the indexes above
 cloneLinkList = []
-
 i = 0
 while i < txt.count(searchString):
     cloneLinkList.append(txt[cloneLinkIndexList[i] : txt.find(",", cloneLinkIndexList[i]) -1])
     i += 1
 
+# Creates new folder "repositories"
 try:
     os.mkdir("repositories")
 except FileExistsError as FEE:
     print(FEE)
 
+# Changes into folder "repositories"
 os.chdir("repositories")
 
+# Clones the remote repository from the list of links, pulls if they already exist
 for url in cloneLinkList:
     if url[49:-4] not in os.listdir("."):
         subprocess.run(["git", "clone", url])
@@ -62,16 +74,16 @@ for url in cloneLinkList:
         subprocess.run(["git", "pull"])
         os.chdir("..")
 
+# go up 1 folder
 os.chdir("..")
 
 readMePathList = []
 
-# print(readMeList)
+# Adds the path for every README.md file
 readMePathList = glob.glob("**/README.md", recursive=True)
+
 # adds the content from the README.md files to a list
-
 readMeContentList = []
-
 for path in readMePathList:
     try:
         file = open(path)
@@ -80,22 +92,9 @@ for path in readMePathList:
         file.close()
     except FileNotFoundError as FNF:
         print(FNF)
-"""
-i = 0
-while i < len(readMePathList):
-    try:
-        file = open(readMePathList[i])
-        txt = file.read()
-        readMeContentList.append(txt)
-        file.close()
-        i += 1
-    except FileNotFoundError as FNF:
-        print(FNF)
-"""
-#print(readMeContentList)
 
+# Adds the required reading bullet points to a list
 requiredReading = []
-
 for f in readMePathList:
     with open(f, "rt") as f1:
         lines = f1.read()
