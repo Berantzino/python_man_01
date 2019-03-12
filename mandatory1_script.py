@@ -78,18 +78,19 @@ createFolder("repositories")
 os.chdir("repositories")
 
 # Clones the remote repository from the list of links, pulls if they already exist
-for url in cloneLinkList:
-    if url[49:-4] not in os.listdir("."):
-        subprocess.run(["git", "clone", url])
-    else:
-        os.chdir(url[49:-4])
-        subprocess.run(["git", "pull"])
-        os.chdir("..")
+def cloneOrPullRepo():
+    for url in cloneLinkList:
+        if url[49:-4] not in os.listdir("."):
+            subprocess.run(["git", "clone", url])
+        else:
+            os.chdir(url[49:-4])
+            subprocess.run(["git", "pull"])
+            os.chdir("..")
+
+cloneOrPullRepo()
 
 # go up 1 folder
 os.chdir("..")
-
-readMePathList = []
 
 # Adds the path for every README.md file
 readMePathList = glob.glob("**/README.md", recursive=True)
