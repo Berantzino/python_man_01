@@ -162,3 +162,7 @@ for line in fileinput.FileInput("required_reading.md", inplace=1):
 subprocess.run(["git", "commit", "-a", "-m", "Required reading commit"])
 subprocess.run(["git", "pull"])
 subprocess.run(["git", "push"])
+
+os.chdir("..")
+
+subprocess.run(["cp", "-v", "curriculum/required_reading.md", "required_reading.md"])

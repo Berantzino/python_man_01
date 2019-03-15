@@ -1,3 +1,5 @@
+* [12. Virtual Environments and Packages](https://docs.python.org/3/tutorial/venv.html)
+
 * [3. An Informal Introduction to Python](https://docs.python.org/3.7/tutorial/introduction.html#an-informal-introduction-to-python)
 
 * [3.1. Using Python as a Calculator](https://docs.python.org/3.7/tutorial/introduction.html#using-python-as-a-calculator)
@@ -48,17 +50,25 @@
 
 * [8.5. The with statement](https://docs.python.org/3/reference/compound_stmts.html#the-with-statement)
 
+* [9. Classes](https://docs.python.org/3/tutorial/classes.html)
+
 * [Exception hierarchy](https://docs.python.org/3/library/exceptions.html#exception-hierarchy)
 
 * [Exercise: Unix Commands](/exercises/UNIX_commands.md)
+
+* [Getting Started With Testing in Python](https://realpython.com/python-testing/#testing-your-code)
 
 * [HOWTO Fetch Internet Resources Using The urllib Package](https://docs.python.org/3/howto/urllib2.html)
 
 * [Installations](/other_materials/installation.md)
 
+* [Installing Packages](https://packaging.python.org/tutorials/installing-packages/)
+
 * [Learning Objectives](/other_materials/learning_objectives.md)
 
 * [Mandatory Assignment: Required reading Exercise](https://github.com/python-elective-1-spring-2019/Lesson-07-Required-reading-Exercise/blob/master/exercises/README.md)
+
+* [Object-Oriented Programming (OOP) in Python 3](https://realpython.com/python3-object-oriented-programming/)
 
 * [Open](https://docs.python.org/3/library/functions.html#open)
 
@@ -78,13 +88,25 @@
 
 * [file object](https://docs.python.org/3/glossary.html#term-file-object)
 
+* [object.__dict__](https://docs.python.org/3/library/stdtypes.html#object.__dict__)
+
+* [object.__repr__(self)](https://docs.python.org/3/reference/datamodel.html#object.__repr__)
+
+* [object.__str__(self)](https://docs.python.org/3/reference/datamodel.html#object.__str__)
+
 * [os — Miscellaneous operating system interfaces](https://docs.python.org/3/library/os.html)
 
 * [subprocess — Subprocess management](https://docs.python.org/3.7/library/subprocess.html#module-subprocess)
+
+* [unittest](https://docs.python.org/3.7/library/unittest.html)
 
 * [urllib — URL handling modules](https://docs.python.org/3/library/urllib.html#module-urllib)
 
 * [urllib.request — Extensible library for opening URLs](https://docs.python.org/3/library/urllib.request.html#module-urllib.request)
 
 * kshfkjfkhskjdhdskjhjsfj
+
+-->
+
+<!--
 
