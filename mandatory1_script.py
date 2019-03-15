@@ -157,10 +157,6 @@ for line in fileinput.FileInput("required_reading.md", inplace=1):
     if line.rstrip():
         print(line)
 
-os.chdir("..")
-
-subprocess.run(["cp", "-v", "curriculum/required_reading.md", "required_reading.md"])
-
 # Push to github
 #subprocess.run(["git", "add", "."])
 subprocess.run(["git", "commit", "-a", "-m", "Required reading commit"])
